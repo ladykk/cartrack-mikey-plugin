@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cartrack-mikey-plugin" version="3.0.2">
+    <name>MikeyCarTrack</name>
+    <description>Mikey CarTrack SDK wrapper for Cordova.</description>
+    <license>MIT</license>
+    <keywords>cordova,android,mikey,cartrack</keywords>
+    <repo></repo>
+    <issue></issue>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <js-module src="www/MikeyCarTrack.js" name="MikeyCarTrack">
+        <clobbers target="window.plugins.MikeyCarTrack" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="MikeyCarTrack">
+                <param name="android-package"
+                    value="com.spheresoftsolutions.cordova.plugin.MikeyCarTrack" />
+            </feature>
+            <preference name="android-minSdkVersion" value="23" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.BLUETOOTH"
+                android:maxSdkVersion="30" />
+            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        </config-file>
+        <source-file src="src/android/MikeyCarTrack.java"
+            target-dir="src/com/spheresoftsolutions/cordova/plugin" />
+        <source-file src="src/android/PermissionManager.java"
+            target-dir="src/com/spheresoftsolutions/cordova/plugin" />
+        <framework src="src/android/plugin.gradle" custom="true" type="gradleReference" />
+        <resource-file src="src/android/aar/blesdk-release_v3.0.2.aar"
+            target="../../libs/blesdk-release_v3.0.2.aar" />
+    </platform>
+</plugin>
