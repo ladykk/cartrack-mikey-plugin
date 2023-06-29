@@ -1,47 +1,8 @@
 // Empty constructor
 function MikeyCarTrack() {}
 
-MikeyCarTrack.prototype.initialize = function (
-  debug,
-  successCallback,
-  errorCallback
-) {
-  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "initialize", [
-    debug,
-  ]);
-};
-
-MikeyCarTrack.prototype.requestPermission = function (
-  successCallback,
-  errorCallback
-) {
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "MikeyCarTrack",
-    "requestPermission",
-    []
-  );
-};
-
-MikeyCarTrack.prototype.toast = function (
-  message,
-  successCallback,
-  errorCallback
-) {
-  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "toast", [
-    message,
-  ]);
-};
-
-MikeyCarTrack.prototype.snackBar = function (
-  message,
-  successCallback,
-  errorCallback
-) {
-  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "snackBar", [
-    message,
-  ]);
+MikeyCarTrack.prototype.register = function (successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "register", []);
 };
 
 MikeyCarTrack.prototype.createTerminal = function (
@@ -58,12 +19,25 @@ MikeyCarTrack.prototype.createTerminal = function (
   );
 };
 
-MikeyCarTrack.prototype.setAuthKey = function (
+MikeyCarTrack.prototype.destroyTerminal = function (
+  successCallback,
+  errorCallback
+) {
+  cordova.exec(
+    successCallback,
+    errorCallback,
+    "MikeyCarTrack",
+    "destroyTerminal",
+    []
+  );
+};
+
+MikeyCarTrack.prototype.saveAuthKey = function (
   authKey,
   successCallback,
   errorCallback
 ) {
-  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "setAuthKey", [
+  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "saveAuthKey", [
     authKey,
   ]);
 };
@@ -74,6 +48,16 @@ MikeyCarTrack.prototype.getAuthKey = function (successCallback, errorCallback) {
     errorCallback,
     "MikeyCarTrack",
     "getAuthKey",
+    []
+  );
+};
+
+MikeyCarTrack.prototype.hasAuthKey = function (successCallback, errorCallback) {
+  cordova.exec(
+    successCallback,
+    errorCallback,
+    "MikeyCarTrack",
+    "hasAuthKey",
     []
   );
 };
@@ -119,18 +103,17 @@ MikeyCarTrack.prototype.unlock = function (successCallback, errorCallback) {
   cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "unlock", []);
 };
 
-MikeyCarTrack.prototype.headlight = function (successCallback, errorCallback) {
+MikeyCarTrack.prototype.unlockNoKey = function (
+  successCallback,
+  errorCallback
+) {
   cordova.exec(
     successCallback,
     errorCallback,
     "MikeyCarTrack",
-    "headlight",
+    "unlockNoKey",
     []
   );
-};
-
-MikeyCarTrack.prototype.horn = function (successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "horn", []);
 };
 
 MikeyCarTrack.prototype.getLockState = function (
@@ -146,17 +129,18 @@ MikeyCarTrack.prototype.getLockState = function (
   );
 };
 
-MikeyCarTrack.prototype.unlockNoKeyFOB = function (
-  successCallback,
-  errorCallback
-) {
+MikeyCarTrack.prototype.headlight = function (successCallback, errorCallback) {
   cordova.exec(
     successCallback,
     errorCallback,
     "MikeyCarTrack",
-    "unlockNoKeyFOB",
+    "headlight",
     []
   );
+};
+
+MikeyCarTrack.prototype.horn = function (successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "MikeyCarTrack", "horn", []);
 };
 
 MikeyCarTrack.prototype.getVehicleStats = function (
@@ -172,7 +156,7 @@ MikeyCarTrack.prototype.getVehicleStats = function (
   );
 };
 
-MikeyCarTrack.prototype.getVehicleStatus = function (
+MikeyCarTrack.prototype.getIgnitionState = function (
   successCallback,
   errorCallback
 ) {
@@ -180,7 +164,7 @@ MikeyCarTrack.prototype.getVehicleStatus = function (
     successCallback,
     errorCallback,
     "MikeyCarTrack",
-    "getVehicleStatus",
+    "getIgnitionState",
     []
   );
 };
