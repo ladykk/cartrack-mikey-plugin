@@ -184,8 +184,8 @@ public class MikeyCarTrack extends CordovaPlugin {
 
     private String ignitionStateToString(Boolean ignitionState) {
         if (ignitionState == null) return "Unknown";
-        else if (ignitionState) return "Locked";
-        else return "Unlocked";
+        else if (ignitionState) return "On";
+        else return "Off";
     }
 
     private String bleSignalStrengthToString(BleSignalStrength bleSignalStrength) {
@@ -261,11 +261,15 @@ public class MikeyCarTrack extends CordovaPlugin {
         callbackContext.sendPluginResult(response(event, ResponseStatus.Success, null, data, false));
         return true;
     }
+    private Boolean success(final CallbackContext callbackContext, ResponseEvent event, Boolean keepCallback) {
+        this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, null, keepCallback), this.callbackId);
+        return true;
+    }
     private void success(ResponseEvent event) {
         this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, null, true), this.callbackId);
     }
     private void success(ResponseEvent event, Map<String, String> data) {
-        this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, data, true), callbackId);
+        this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, data, true), this.callbackId);
     }
 
     private Boolean pending(final CallbackContext callbackContext, ResponseEvent event) {
@@ -332,7 +336,7 @@ public class MikeyCarTrack extends CordovaPlugin {
                     return this.horn(callbackContext);
                 case "getLockState":
                     return this.getLockState(callbackContext);
-                case "unlockNoKeyFOB":
+                case "unlockNoKey":
                     return this.unlockNoKey(callbackContext);
                 case "getVehicleStats":
                     return this.getVehicleStats(callbackContext);
@@ -358,7 +362,7 @@ public class MikeyCarTrack extends CordovaPlugin {
     private Boolean register(final CallbackContext callbackContext) {
         this.callbackId = callbackContext.getCallbackId();
         this.requestPermission();
-        return this.success(callbackContext, ResponseEvent.Register);
+        return this.success(callbackContext, ResponseEvent.Register, true);
     }
 
     // [Connection]
