@@ -335,7 +335,7 @@ class MikeyCarTrack: CDVPlugin {
         self.pending(event: .Unlock, callbackId: command.callbackId)
     }
     
-    @objc(unlockNokey:)
+    @objc(unlockNoKey:)
     func unlockNoKey(command: CDVInvokedUrlCommand) {
         if (NoBleTerminalError(event: .UnlockNoKey, callbackId: command.callbackId)) { return }
         

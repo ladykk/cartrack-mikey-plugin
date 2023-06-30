@@ -42,6 +42,12 @@
                 <param name="ios-package" value="MikeyCarTrack" />
             </feature>
         </config-file>
+        <config-file target="*-Info.plist" parent="NSBluetoothAlwaysUsageDescription">
+            <string>Mikey CarTrack SDK uses Bluetooth to connect to the terminal.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSBluetoothPeripheralUsageDescription">
+            <string>Mikey CarTrack SDK uses Bluetooth to connect to the terminal.</string>
+        </config-file>
         <source-file src="src/ios/MikeyCarTrack.swift" />
         <framework src="CoreBluetooth.framework" />
         <framework src="src/ios/frameworks/CartrackBleLockSDK.xcframework" custom="true" embed="true" />

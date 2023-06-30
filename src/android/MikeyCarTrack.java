@@ -210,7 +210,7 @@ public class MikeyCarTrack extends CordovaPlugin {
 
     private Map<String, String> vehicleStatsToMap(GetVehicleStats vehicleStats) {
         Map<String, String> data = new HashMap<>();
-        data.put("odometer", String.valueOf(vehicleStats.getOdometer()));
+        data.put("odometer", String.valueOf(vehicleStats.getOdometer() * 1000));
         data.put("engineHours", String.valueOf(vehicleStats.getEngineHours()));
         data.put("engineRPM", String.valueOf(vehicleStats.getEngineRPM()));
         data.put("fuelLevel", String.valueOf(vehicleStats.getFuelLevel()));
