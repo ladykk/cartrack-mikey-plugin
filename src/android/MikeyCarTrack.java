@@ -210,7 +210,7 @@ public class MikeyCarTrack extends CordovaPlugin {
 
     private Map<String, String> vehicleStatsToMap(GetVehicleStats vehicleStats) {
         Map<String, String> data = new HashMap<>();
-        data.put("odometer", String.valueOf(vehicleStats.getOdometer() * 1000));
+        data.put("odometer", String.valueOf(vehicleStats.getOdometer() != null ? vehicleStats.getOdometer() * 1000 : 0));
         data.put("engineHours", String.valueOf(vehicleStats.getEngineHours()));
         data.put("engineRPM", String.valueOf(vehicleStats.getEngineRPM()));
         data.put("fuelLevel", String.valueOf(vehicleStats.getFuelLevel()));
@@ -261,12 +261,9 @@ public class MikeyCarTrack extends CordovaPlugin {
         callbackContext.sendPluginResult(response(event, ResponseStatus.Success, null, data, false));
         return true;
     }
-    private Boolean success(final CallbackContext callbackContext, ResponseEvent event, Boolean keepCallback) {
-        this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, null, keepCallback), this.callbackId);
-        return true;
-    }
-    private void success(ResponseEvent event) {
+    private Boolean success(ResponseEvent event) {
         this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, null, true), this.callbackId);
+        return true;
     }
     private void success(ResponseEvent event, Map<String, String> data) {
         this.webView.sendPluginResult(response(event, ResponseStatus.Success, null, data, true), this.callbackId);
@@ -362,7 +359,7 @@ public class MikeyCarTrack extends CordovaPlugin {
     private Boolean register(final CallbackContext callbackContext) {
         this.callbackId = callbackContext.getCallbackId();
         this.requestPermission();
-        return this.success(callbackContext, ResponseEvent.Register, true);
+        return this.success(ResponseEvent.Register);
     }
 
     // [Connection]
