@@ -1,24 +1,24 @@
 {
-  "name": "cartrack-mikey-plugin",
+  "name": "mikey-plugin",
   "version": "3.0.2",
   "description": "Mikey CarTrack SDK wrapper for Cordova.",
   "cordova": {
-    "id": "cartrack-mikey-plugin",
+    "id": "mikey-plugin",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KittiponSphere/BrookCarTrack.git"
+    "url": "git+https://github.com/ladykk/cartrack-mikey-plugin.git"
   },
   "keywords": [
-    "Toast",
-    "Notification",
-    "Message",
-    "Alert",
     "ecosystem:cordova",
-    "cordova-android"
+    "cordova-android",
+    "cordova-ios",
+    "cartrack",
+    "mikey"
   ],
   "engines": [
     {
@@ -26,10 +26,10 @@
       "version": ">=3.0.0"
     }
   ],
-  "author": "Kittipon <kittipon.tae@spheresoftsolutions.com>",
+  "author": "Rattapon Apiratjit <rattapon.api@spheresoftsolutions.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KittiponSphere/BrookCarTrack/issues"
+    "url": "https://github.com/ladykk/cartrack-mikey-plugin/issues"
   },
-  "homepage": "https://github.com/KittiponSphere/BrookCarTrack/"
+  "homepage": "https://github.com/ladykk/cartrack-mikey-plugin"
 }

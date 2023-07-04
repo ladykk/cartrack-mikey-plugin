@@ -4,7 +4,7 @@
     <name>MikeyCarTrack</name>
     <description>Mikey CarTrack SDK wrapper for Cordova.</description>
     <license>MIT</license>
-    <keywords>cordova,android,mikey,cartrack</keywords>
+    <keywords>cordova,android,ios,mikey,cartrack</keywords>
     <repo />
     <issue />
     <engines>
