@@ -1,6 +1,7 @@
 import Foundation
 import CartrackBleLockSDK
 
+@objc(MikeyCarTrack)
 class MikeyCarTrack: CDVPlugin {
     private var callbackId: String? = nil;
     private var bleTerminal: BleTerminal? = nil;
@@ -105,7 +106,7 @@ class MikeyCarTrack: CDVPlugin {
             return "Locked"
         case LockState.unlocked:
             return "Unlocked"
-        case LockState.unknown:
+        default:
             return "Unknown"
         }
     }
@@ -116,7 +117,7 @@ class MikeyCarTrack: CDVPlugin {
             return "Off"
         case .on:
             return "On"
-        case .unknown:
+        default:
             return "Unknown"
         }
     }
@@ -129,7 +130,7 @@ class MikeyCarTrack: CDVPlugin {
             return "Good"
         case .weak:
             return "Weak"
-        case .unknown:
+        default:
             return "Unknown"
         }
     }
@@ -142,7 +143,7 @@ class MikeyCarTrack: CDVPlugin {
             return "Left"
         case.right:
             return "Right"
-        case .off:
+        default:
             return "Off"
         }
     }
@@ -181,7 +182,7 @@ class MikeyCarTrack: CDVPlugin {
         if(data != nil) {response["data"] = self.dictToJson(dict: data!)};
         
         // Create Plugin Result
-        var pluginResult = CDVPluginResult(
+        let pluginResult = CDVPluginResult(
             status: status == ResponseStatus.Error ? CDVCommandStatus_ERROR : CDVCommandStatus_OK,
             messageAs: self.dictToJson(dict: response));
         
@@ -262,7 +263,7 @@ class MikeyCarTrack: CDVPlugin {
         
         if (NoBleTerminalError(event: .SaveAuthKey, callbackId: command.callbackId)) { return }
         
-        var authKey: String? = command.arguments[0] as? String;
+        let authKey: String? = command.arguments[0] as? String;
         bleTerminal?.saveAuthKey(authKey: authKey!);
         
         self.pending(event: .SaveAuthKey, callbackId: command.callbackId)
