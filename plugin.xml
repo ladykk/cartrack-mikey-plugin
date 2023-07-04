@@ -13,7 +13,6 @@
     <js-module name="MikeyCarTrack" src="www/MikeyCarTrack.js">
         <clobbers target="window.plugins.MikeyCarTrack" />
     </js-module>
-    <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="MikeyCarTrack">

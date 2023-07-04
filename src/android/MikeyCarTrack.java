@@ -51,7 +51,7 @@ public class MikeyCarTrack extends CordovaPlugin {
         BluetoothUnsupported("BluetoothUnsupported"),
         SaveAuthKeyFailed("SaveAuthKeyFailed"),
         KeyNotFound("KeyNotFound"),
-        KeyInvalid("KetInvalid"),
+        KeyInvalid("KeyInvalid"),
         TerminalNotFound("TerminalNotFound"),
         NotConnected("NotConnected"),
         MissingPermission("MissingPermission"),
