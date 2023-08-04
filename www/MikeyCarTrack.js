@@ -169,6 +169,18 @@ MikeyCarTrack.prototype.getIgnitionState = function (
   );
 };
 
+MikeyCarTrack.prototype.checkBluetoothEnabled = function (
+  successCallback,
+  errorCallback
+) {
+  cordova.exec(
+    successCallback,
+    errorCallback,
+    "MikeyCarTrack",
+    "checkBluetoothEnabled"
+  );
+};
+
 // Installation constructor that binds ToastyPlugin to window
 MikeyCarTrack.install = function () {
   if (!window.plugins) {
