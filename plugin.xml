@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="mikey-plugin" version="3.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin id="mikey-plugin" version="3.2.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>MikeyCarTrack</name>
     <description>Mikey CarTrack SDK wrapper for Cordova.</description>
@@ -32,8 +32,8 @@
         <source-file src="src/android/PermissionManager.java"
             target-dir="src/com/spheresoftsolutions/cordova/plugin" />
         <framework custom="true" src="src/android/plugin.gradle" type="gradleReference" />
-        <resource-file src="src/android/aar/blesdk-release_v3.0.2.aar"
-            target="../../libs/blesdk-release_v3.0.2.aar" />
+        <resource-file src="src/android/aar/blesdk-release_v3.2.aar"
+            target="../../libs/blesdk-release_v3.2.aar" />
     </platform>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
