@@ -91,7 +91,6 @@ public class MikeyCarTrack extends CordovaPlugin {
         GetVehicleStats("getVehicleStats"),
         GetIgnitionState("getIgnitionState"),
         SignalUpdate("signalUpdate"),
-        CheckBluetoothEnabled("checkBluetoothEnabled"),
         Unknown("unknown");
 
         private final String rawValue;
@@ -114,7 +113,6 @@ public class MikeyCarTrack extends CordovaPlugin {
                 GetVehicleStats,
                 GetIgnitionState,
                 SignalUpdate,
-                CheckBluetoothEnabled,
                 Unknown
         };
 
@@ -344,8 +342,6 @@ public class MikeyCarTrack extends CordovaPlugin {
                     return this.getVehicleStats(callbackContext);
                 case "getIgnitionState":
                     return this.getIgnitionState(callbackContext);
-                case "checkBluetoothEnabled":
-                    return this.checkBluetoothEnabled(callbackContext);
                 default:
                     return this.error(callbackContext, ResponseEvent.Unknown, ResponseError.UnknownError);
             }
@@ -355,18 +351,6 @@ public class MikeyCarTrack extends CordovaPlugin {
         } catch (Exception e) {
             this.error(callbackContext, ResponseEvent.getResponseEventFromAction(action), ResponseError.UnknownError);
             return false;
-        }
-    }
-
-    private boolean checkBluetoothEnabled(final CallbackContext callbackContext) {
-        if(mBluetoothAdapter == null) {
-            this.error(callbackContext, ResponseEvent.CheckBluetoothEnabled, ResponseError.BluetoothUnsupported);
-            return false;
-        } else if (!mBluetoothAdapter.isEnabled()) {
-            this.error(callbackContext, ResponseEvent.CheckBluetoothEnabled, ResponseError.BluetoothDisabled);
-            return false;
-        } else {
-            return this.success(callbackContext, ResponseEvent.CheckBluetoothEnabled);
         }
     }
 
