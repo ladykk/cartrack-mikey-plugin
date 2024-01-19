@@ -162,6 +162,18 @@ public class MikeyCarTrack extends CordovaPlugin {
         else return ResponseError.UnknownError;
     }
 
+    private ResponseEvent bleErrorToResponseEvent(BleError error) {
+        if (BleAction.LOCK.ordinal() == error.getActionCode()) return ResponseEvent.Lock;
+        else if (BleAction.UNLOCK.ordinal() == error.getActionCode()) return ResponseEvent.Unlock;
+        else if (BleAction.HEADLIGHT.ordinal() == error.getActionCode()) return ResponseEvent.Headlight;
+        else if (BleAction.HORN.ordinal() == error.getActionCode()) return ResponseEvent.Horn;
+        else if (BleAction.GET_LOCK_STATE.ordinal() == error.getActionCode()) return ResponseEvent.GetLockState;
+        else if (BleAction.UNLOCK_NOKEYFOB.ordinal() == error.getActionCode()) return ResponseEvent.UnlockNoKey;
+        else if (BleAction.VEHICLE_GET_STATUS.ordinal() == error.getActionCode()) return ResponseEvent.GetVehicleStats;
+        else if (BleAction.VEHICLE_GET_CONFIG.ordinal() == error.getActionCode()) return ResponseEvent.GetIgnitionState;
+        else return ResponseEvent.Unknown;
+    }
+
     private ResponseEvent bleActionToResponseEvent(BleAction action) {
         if (BleAction.LOCK.equals(action)) return ResponseEvent.Lock;
         else if (BleAction.UNLOCK.equals(action)) return ResponseEvent.Unlock;
@@ -590,8 +602,9 @@ public class MikeyCarTrack extends CordovaPlugin {
         }
 
         public void onError(@NonNull BleError bleError) {
+
             if (callbackId != null) {
-                error(ResponseEvent.Unknown, bleErrorToResponseError(bleError));
+                error(bleErrorToResponseEvent(bleError), bleErrorToResponseError(bleError));
             }
         }
     };
