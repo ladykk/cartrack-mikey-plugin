@@ -1,10 +1,7 @@
 package com.spheresoftsolutions.cordova.plugin;
 
 // Cordova-required packages
-import android.bluetooth.BluetoothAdapter;
-
 import androidx.annotation.NonNull;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -23,7 +20,6 @@ import java.util.Map;
 public class MikeyCarTrack extends CordovaPlugin {
     private String callbackId = null;
     private BleTerminal bleTerminal = null;
-    private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     public enum ResponseStatus {
         Success("success"),
@@ -380,7 +376,7 @@ public class MikeyCarTrack extends CordovaPlugin {
         BleService.Companion.clear();
         BleService.Companion.configure(cordova.getContext());
         bleTerminal = BleService.Companion.getTerminal(terminalId);
-        bleTerminal.setBleListener(bleListener);
+        bleTerminal.setBleListener(listener);
 
         return this.success(callbackContext, ResponseEvent.CreateTerminal);
     }
@@ -519,31 +515,14 @@ public class MikeyCarTrack extends CordovaPlugin {
         return this.pending(callbackContext, ResponseEvent.GetIgnitionState);
     }
 
-    BleListener bleListener = new BleListener() {
-        @Override
-        public void onSignalStrength(@NonNull BleSignalStrength bleSignalStrength, int rssiValue) {
-            if (callbackId != null) {
-                Map<String, String> data = new HashMap<>();
-                data.put("strength", bleSignalStrengthToString(bleSignalStrength));
-                data.put("rssi", String.valueOf(rssiValue));
 
-                success(ResponseEvent.SignalUpdate, data);
-            }
-        }
-
-        @Override
-        public void onReconnect() {
-            // REMARK: iOS SDK don't have this options.
-        }
-
-        @Override
+    public final class Listener implements BleListener {
         public void onTerminalConnected(@NonNull BleTerminal bleTerminal) {
             if (callbackId != null) {
                 success(ResponseEvent.Connect);
             }
         }
 
-        @Override
         public void onTerminalCommandResult(@NonNull BleAction bleAction) {
             if (callbackId != null) {
                 if (BleAction.LOCK.equals(bleAction) || BleAction.UNLOCK.equals(bleAction) || BleAction.UNLOCK_NOKEYFOB.equals(bleAction) || BleAction.HEADLIGHT.equals(bleAction) || BleAction.HORN.equals(bleAction)) {
@@ -556,14 +535,12 @@ public class MikeyCarTrack extends CordovaPlugin {
             }
         }
 
-        @Override
         public void onTerminalDidGetVehicleStats(byte b, @NonNull GetVehicleStats getVehicleStats) {
             if (callbackId != null) {
                 success(ResponseEvent.GetVehicleStats, vehicleStatsToMap(getVehicleStats));
             }
         }
 
-        @Override
         public void onTerminalDidGetVehicleStatus(byte b, @NonNull GetVehicleStatus getVehicleStatus) {
             if (callbackId != null) {
                 Map<String, String> data = new HashMap<>();
@@ -572,30 +549,52 @@ public class MikeyCarTrack extends CordovaPlugin {
             }
         }
 
-        @Override
         public void onTerminalDisconnected(@NonNull BleTerminal bleTerminal) {
             if (callbackId != null) {
                 success(ResponseEvent.Disconnect);
             }
         }
 
-        @Override
-        public void onSaveAuthKeySuccess(@NonNull BleTerminal bleTerminal, @NonNull String authKey) {
+        public void onSaveAuthKeySuccess(@NonNull BleTerminal bleTerminal, @NonNull String s) {
             if (callbackId != null) {
                 success(ResponseEvent.SaveAuthKey);
             }
         }
 
-        @Override
+        public void onSignalStrength(@NonNull BleSignalStrength bleSignalStrength, int i) {
+            if (callbackId != null) {
+                Map<String, String> data = new HashMap<>();
+                data.put("strength", bleSignalStrengthToString(bleSignalStrength));
+                data.put("rssi", String.valueOf(i));
+
+                success(ResponseEvent.SignalUpdate, data);
+            }
+        }
+
+        public void onSignalStrength(@NonNull BleSignalStrength bleSignalStrength) {
+            if (callbackId != null) {
+                Map<String, String> data = new HashMap<>();
+                data.put("strength", bleSignalStrengthToString(bleSignalStrength));
+                data.put("rssi", String.valueOf(0));
+
+                success(ResponseEvent.SignalUpdate, data);
+            }
+        }
+
         public void onRemoveAuthKeySuccess() {
             // REMARK: iOS SDK don't have this options.
         }
 
-        @Override
+        public void onReconnect() {
+            // REMARK: iOS SDK don't have this options.
+        }
+
         public void onError(@NonNull BleError bleError) {
             if (callbackId != null) {
                 error(ResponseEvent.Unknown, bleErrorToResponseError(bleError));
             }
         }
     };
+
+    private final BleListener listener = new Listener();
 }
